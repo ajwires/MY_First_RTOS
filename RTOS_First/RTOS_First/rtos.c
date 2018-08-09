@@ -106,7 +106,7 @@ void OSThread_start(
 }
 
 void PendSV_Handler(void) {
-	//"IMPORT  OS_curr  /* extern variable */"
+	//__asm("IMPORT  OS_curr");  /* extern variable */
 	//"IMPORT  OS_next  /* extern variable */"
    
 	// __disable_irq(); 
@@ -141,4 +141,7 @@ void PendSV_Handler(void) {
 	__asm("    CPSIE         I");
 	// return to the next thread 
 	__asm("    BX            lr");
+	
+	int x;
+	x = 0;
 }

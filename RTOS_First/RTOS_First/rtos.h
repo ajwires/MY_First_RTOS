@@ -27,7 +27,6 @@
 typedef struct
 {
 	void *sp;	//stack pointer
-	
 } OSThread;
 
 typedef void (*OSThreadHandler)();

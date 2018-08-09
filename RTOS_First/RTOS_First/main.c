@@ -25,9 +25,9 @@ void blink_1_func(void)
 	while (1)
 	{
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_SET);
-		//HAL_Delay(500);
+		HAL_Delay(500);
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_14, GPIO_PIN_RESET);
-		//HAL_Delay(500);
+		HAL_Delay(500);
 	}
 }
 void blink_2_func(void)
@@ -35,9 +35,9 @@ void blink_2_func(void)
 	while (1)
 	{
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_SET);
-		//HAL_Delay(500);
+		HAL_Delay(500);
 		HAL_GPIO_WritePin(GPIOG, GPIO_PIN_13, GPIO_PIN_RESET);
-		//HAL_Delay(500);
+		HAL_Delay(500);
 	}
 }
 
@@ -65,7 +65,6 @@ int main(void)
 	
 	OSThread_start(&blink_1, &blink_1_func, stack_blink_1, sizeof(stack_blink_1));
 	OSThread_start(&blink_2, &blink_2_func, stack_blink_2, sizeof(stack_blink_2));
-
 	
 	/* transfer control to the RTOS to run the threads */
 	OS_run();
