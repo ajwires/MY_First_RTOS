@@ -328,3 +328,11 @@ ASALocalRun/
 
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
+RTOS_First/RTOS_First.sln
+RTOS_First/RTOS_First/RTOS_First-Debug.vgdbsettings
+RTOS_First/RTOS_First/RTOS_First-Release.vgdbsettings
+RTOS_First/RTOS_First/RTOS_First.vcxproj
+RTOS_First/RTOS_First/RTOS_First.vcxproj.filters
+RTOS_First/RTOS_First/stm32.props
+RTOS_First/RTOS_First/stm32.xml
+RTOS_First/RTOS_First/VisualGDB/VisualGDBCache/RTOS_First-Debug/MemoryUtilizationReport.xml

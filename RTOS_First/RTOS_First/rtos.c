@@ -57,7 +57,11 @@ void OS_sched(void)
 
 }
 
-void OSThread_start(OSThread *me, OSThreadHandler threadHandler, void *stkSto, uint32_t stkSize)
+void OSThread_start(
+    OSThread *me,
+	OSThreadHandler threadHandler,
+	void *stkSto,
+	uint32_t stkSize)
 {
 	/* round down the stack top to the 8-byte boundary
 	* NOTE: ARM Cortex-M stack grows down from hi -> low memory
@@ -101,7 +105,6 @@ void OSThread_start(OSThread *me, OSThreadHandler threadHandler, void *stkSto, u
 	++OS_threadNum;
 }
 
-
 void PendSV_Handler(void) {
 	//"IMPORT  OS_curr  /* extern variable */"
 	//"IMPORT  OS_next  /* extern variable */"
@@ -111,29 +114,29 @@ void PendSV_Handler(void) {
 
 	// if (OS_curr != (OSThread *)0) { 
 	__asm("LDR           r1,=OS_curr");
-	__asm("LDR           r1, [r1,  # 0x00]");
-	//__asm("CBZ           r1, PendSV_restore");
+	__asm("LDR           r1, [r1,#0x00]");
+	__asm("CBZ           r1, PendSV_restore");
 	//     push registers r4-r11 on the stack 
 	__asm("PUSH          { r4 - r11 } ");
 
 	//     OS_curr->sp = sp; 
-	__asm("LDR           r1,  = OS_curr");
-	__asm("LDR           r1, [r1,  # 0x00]");
-	__asm("STR           sp, [r1,  # 0x00]");
+	__asm("LDR           r1,=OS_curr");
+	__asm("LDR           r1, [r1,#0x00]");
+	__asm("STR           sp, [r1,#0x00]");
 
 
 	__asm("PendSV_restore:   ");
 	// sp = OS_next->sp; 
-	__asm("		LDR           r1,  = OS_next");
-	__asm("		LDR           r1, [r1,  # 0x00]");
-	__asm("		LDR           sp, [r1,  # 0x00]");
+	__asm("		LDR           r1,=OS_next");
+	__asm("		LDR           r1,[r1,#0x00]");
+	__asm("		LDR           sp,[r1,#0x00]");
 	// OS_curr = OS_next; 
-	__asm("    LDR           r1,  = OS_next");
-	__asm("    LDR           r1, [r1,  # 0x00]");
-	__asm("    LDR           r2,  = OS_curr");
-	__asm("    STR           r1, [r2,  # 0x00]");
+	__asm("    LDR           r1,=OS_next");
+	__asm("    LDR           r1,[r1,#0x00]");
+	__asm("    LDR           r2,=OS_curr");
+	__asm("    STR           r1,[r2,#0x00]");
 	// pop registers r4-r11  
-	__asm("    POP           { r4 - r11 }    ");
+	__asm("    POP           {r4-r11}");
 	// __enable_irq(); 
 	__asm("    CPSIE         I");
 	// return to the next thread 
